@@ -1,272 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>Arab Company</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عائله البارون | ELBAROUN Family</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-
-body{
-  background:linear-gradient(135deg,#0b0f1f,#0f1530);
-  color:#fff;
-  overflow-x:hidden;
+:root {
+    --gold: #ffcc70;
+    --pink: #ff4ecd;
+    --dark: #0a0a0a;
+    --vip-gold: linear-gradient(90deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* HERO */
-.hero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:50px;
-  gap:40px;
+*{ margin:0; padding:0; box-sizing:border-box; font-family: "Cairo", sans-serif; -webkit-tap-highlight-color: transparent; }
+
+body { background-color: var(--dark); color: white; overflow-x: hidden; line-height: 1.8; }
+
+/* --- شاشة الترحيب الهيبة --- */
+#intro {
+    position: fixed; inset: 0; background: #000; z-index: 2000;
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; text-align: center; padding: 25px;
+    transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1), opacity 1.5s ease, filter 1.5s ease;
+}
+#intro img { width: 140px; margin-bottom: 25px; filter: drop-shadow(0 0 15px var(--gold)); }
+#typing-text { max-width: 850px; font-size: 20px; color: var(--gold); min-height: 150px; font-weight: 700; white-space: pre-line; }
+
+#enter-btn {
+    margin-top: 40px; padding: 18px 50px;
+    background: linear-gradient(135deg, var(--gold), #b8860b);
+    color: #000; font-weight: 900; border: none; border-radius: 50px;
+    cursor: pointer; font-size: 20px; display: none;
+    box-shadow: 0 0 30px rgba(255, 204, 112, 0.5);
+    animation: fadeInBtn 1s ease forwards, pulseBtn 2s infinite;
+}
+@keyframes fadeInBtn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+/* --- محتوى الموقع (البلور عند الدخول) --- */
+#main-wrapper {
+    transition: filter 2s ease, transform 2s ease;
+    filter: blur(20px); /* يبدأ ببلور قوي */
+    transform: scale(1.1); /* يبدأ بزوم خفيف */
+    opacity: 0;
 }
 
-.left{max-width:520px}
-
-h1{font-size:46px}
-h1 span{color:#5865F2}
-p{opacity:.85;margin-top:10px}
-
-.buttons{
-  margin-top:30px;
-  position:relative;
+.site-loaded #main-wrapper {
+    filter: blur(0px);
+    transform: scale(1);
+    opacity: 1;
 }
 
-.btn{
-  padding:13px 28px;
-  border-radius:30px;
-  font-weight:bold;
-  text-decoration:none;
-  cursor:pointer;
-  display:inline-block;
-  transition:.3s;
+/* --- الخلفية والملاحة --- */
+.background {
+    position: fixed; inset: 0;
+    background: url("https://i.ibb.co/B584F2Qt/Gemini-Generated-Image-8zh3v58zh3v58zh3.webp") center/cover no-repeat;
+    filter: blur(10px) brightness(0.2); z-index: -1;
 }
-
-.join{
-  background:#5865F2;
-  color:#fff;
+nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 5%; background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px); border-bottom: 2px solid var(--gold);
 }
-.join:hover{box-shadow:0 0 25px #5865f299}
+nav ul { display: flex; list-style: none; gap: 20px; }
+nav ul li a { color: white; text-decoration: none; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+nav ul li a:hover, nav ul li a.active { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
 
-.order{
-  border:2px solid #5865F2;
-  color:#5865F2;
-  margin-left:10px;
+.page { display: none; padding: 40px 5%; animation: pageIn 1s ease forwards; }
+.page.active { display: block; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(30px); filter: blur(10px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+
+/* --- الأزرار والكروت --- */
+.btn-container { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
+.join-btn {
+    padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 900;
+    font-size: 18px; transition: var(--transition); display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3); color: white;
 }
-.order:hover{background:#5865F2;color:#fff}
+.btn-elbaroun { background: var(--pink); border: 2px solid #ff00ae; }
+.btn-north { background: #0088cc; border: 2px solid #00a2ff; }
+.join-btn:hover { transform: scale(1.08) translateY(-5px); filter: brightness(1.2); }
 
-/* IMAGE */
-.right img{
-  width:300px;
-  animation:float 4s ease-in-out infinite;
+.leader-card { 
+    text-align: center; background: rgba(255, 255, 255, 0.03); padding: 40px 20px; 
+    border-radius: 30px; border: 2px solid var(--gold); max-width: 350px; 
+    margin: 20px auto 40px; position: relative; transition: var(--transition); 
 }
+.leader-card:hover { transform: translateY(-15px); box-shadow: 0 15px 40px rgba(255,204,112,0.2); }
+.leader-card img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--gold); margin-bottom: 15px; object-fit: cover; }
 
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-12px)}
+.sub-owners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
+.owner-card { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 25px; text-align: center; border: 1px solid rgba(255,255,255,0.1); transition: var(--transition); }
+.owner-card:hover { transform: translateY(-10px); border-color: var(--pink); }
+.owner-card img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--pink); margin-bottom: 10px; object-fit: cover; }
+
+.dev-section { margin-top: 50px; display: flex; justify-content: center; }
+.vip-dev-card {
+    width: 250px; background: rgba(0, 0, 0, 0.75); border-radius: 30px; padding: 30px; text-align: center;
+    border: 2px solid transparent; background-image: linear-gradient(black, black), var(--vip-gold);
+    background-origin: border-box; background-clip: padding-box, border-box; transition: var(--transition);
 }
+.vip-dev-card:hover { transform: translateY(-15px) scale(1.03); }
+.vip-dev-card img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover; }
 
-/* ORDER BOX */
-.order-box{
-  position:absolute;
-  top:65px;
-  left:0;
-  width:330px;
-  background:#141936;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 20px 60px rgba(0,0,0,.5);
-  display:none;
-  animation:pop .25s ease;
-  z-index:10;
-}
+.assets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+.asset-box { position: relative; border-radius: 25px; overflow: hidden; border: 2px solid rgba(255,255,255,0.1); height: 260px; transition: var(--transition); }
+.asset-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+.asset-box:hover img { transform: scale(1.1); }
 
-@keyframes pop{
-  from{opacity:0; transform:translateY(-10px) scale(.95)}
-  to{opacity:1; transform:none}
-}
-
-.close{
-  position:absolute;
-  top:10px;
-  right:14px;
-  cursor:pointer;
-  font-size:18px;
-}
-
-.order-box input,
-.order-box textarea{
-  width:100%;
-  margin:7px 0;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  outline:none;
-}
-
-.send{
-  width:100%;
-  margin-top:10px;
-  padding:12px;
-  border:none;
-  border-radius:25px;
-  background:#5865F2;
-  color:#fff;
-  cursor:pointer;
-}
-
-/* SECTIONS */
-section{
-  padding:80px 50px;
-  text-align:center;
-}
-
-section h2{
-  font-size:38px;
-  margin-bottom:40px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:25px;
-}
-
-/* CARD EFFECT */
-.card{
-  background:rgba(255,255,255,0.08);
-  padding:25px;
-  border-radius:18px;
-  transition:.35s ease;
-  position:relative;
-  overflow:hidden;
-  backdrop-filter:blur(4px);
-}
-
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at top,#5865F240,transparent 60%);
-  opacity:0;
-  transition:.35s;
-}
-
-.card:hover::before{opacity:1}
-
-.card:hover{
-  transform:translateY(-8px) scale(1.03);
-  box-shadow:0 20px 50px rgba(88,101,242,.35);
-}
-
-.card h3{color:#8ea2ff;margin-bottom:6px}
-.card p{opacity:.85}
-
-/* FOOTER */
-footer{
-  padding:30px;
-  text-align:center;
-  opacity:.7;
+@media (max-width: 768px) {
+    .sub-owners-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .btn-container { flex-direction: column; align-items: center; }
+    .join-btn { width: 90%; justify-content: center; }
 }
 </style>
 </head>
-
 <body>
 
-<audio id="sound" src="https://assets.mixkit.co/sfx/preview/mixkit-interface-click-1126.mp3"></audio>
+<audio id="typeSound" src="https://www.soundjay.com/communication/typewriter-finger-tap-1.mp3" preload="auto"></audio>
+<audio id="hoverSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
 
-<div class="hero">
-  <div class="left">
-    <h1>Arab <span>Company</span></h1>
-    <p>Premium Discord Services</p>
-
-    <div class="buttons">
-      <a class="btn join" href="https://discord.gg/X5aJuJAV" target="_blank">Join Server</a>
-      <span class="btn order" onclick="toggleOrder()">Order</span>
-
-      <div class="order-box" id="orderBox">
-        <span class="close" onclick="toggleOrder()">?</span>
-        <input id="user" placeholder="Discord Username">
-        <input id="service" placeholder="Service">
-        <textarea id="details" placeholder="Details"></textarea>
-        <button class="send" onclick="sendOrder()">Send Order</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="right">
-    <img src="https://i.ibb.co/dJjq9Jf6/ultra-pro-neon-v4.gif">
-  </div>
+<div id="intro">
+    <img src="https://i.ibb.co/KpPRspwY/bc06e9c672f1ae335e7fa815058d44cf.webp">
+    <div id="typing-text"></div>
+    <button id="enter-btn" onclick="startSite()">دخول العائلة</button>
 </div>
 
-<section>
-<h2>Owners</h2>
-<div class="grid">
-  <div class="card"><h3>Mafia</h3><p>Owner</p></div>
-  <div class="card"><h3>Just Kakashi</h3><p>Founder</p></div>
-  <div class="card"><h3>iLoe</h3><p>Vice Founder</p></div>
-  <div class="card"><h3>Tt3b</h3><p>Administrator</p></div>
-</div>
-</section>
+<div id="main-wrapper">
+    <div class="background"></div>
 
-<section>
-<h2>Services</h2>
-<div class="grid">
-  <div class="card"><h3>Discord Fonts</h3><p>60k</p></div>
-  <div class="card"><h3>Profile Design</h3><p>100k</p></div>
-  <div class="card"><h3>Static Server Logo</h3><p>150k</p></div>
-  <div class="card"><h3>Animation Server Logo</h3><p>300k</p></div>
-  <div class="card"><h3>Tickets Bot</h3><p>Custom</p></div>
-  <div class="card"><h3>Security Bot</h3><p>Custom</p></div>
-  <div class="card"><h3>Image Generator Bot</h3><p>Custom</p></div>
-</div>
-</section>
+    <nav>
+        <div style="color: var(--gold); font-size: 22px; font-weight: 900;">ELBAROUN</div>
+        <ul>
+            <li><a onclick="showPage('home')" id="nav-home" class="active">الرئيسية</a></li>
+            <li><a onclick="showPage('owners')" id="nav-owners">القيادة</a></li>
+            <li><a onclick="showPage('assets')" id="nav-assets">الممتلكات</a></li>
+        </ul>
+    </nav>
 
-<footer>Arab Company Top 1</footer>
+    <main style="max-width: 1200px; margin: auto;">
+        <div id="home" class="page active">
+            <div style="text-align: center; padding: 60px 10px;">
+                <img src="https://i.ibb.co/KpPRspwY/bc06e9c672f1ae335e7fa815058d44cf.webp" style="width: 180px; margin-bottom: 25px;">
+                <h1 style="font-size: 55px; color: var(--gold); font-weight: 900;">عائلة البارون</h1>
+                <p style="font-size: 22px; color: #ccc;">القوة في الاتحاد، والصبر في المواجهة.</p>
+                <div class="btn-container">
+                    <a href="https://discord.gg/eZe45gvj" target="_blank" class="join-btn btn-elbaroun hover-trigger">Join ELBAROUN Discord</a>
+                    <a href="https://discord.gg/thenorth" target="_blank" class="join-btn btn-north hover-trigger">Join THE NORTH Server</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="owners" class="page">
+            <div class="leader-card hover-trigger">
+                <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--gold); color: black; padding: 5px 20px; border-radius: 20px; font-weight: 900; font-size: 12px;">👑 LEADER</div>
+                <img src="https://i.ibb.co/1G4k2QRb/288a634f830e3642d9e90218c52ad8ce.webp">
+                <h2 style="color: var(--gold);">Hitham Elbaroun</h2>
+                <p>THE FOUNDER</p>
+            </div>
+            <div class="sub-owners-grid">
+                <div class="owner-card hover-trigger"><img src="https://i.ibb.co/gbdnSDXx/44edba2e87c03c9b5eb6851fe6e5e7b1.webp"><h4>Tasneem</h4><span>Grandmother</span></div>
+                <div class="owner-card hover-trigger"><img src="https://i.ibb.co/qS42mSP/a-a4cbe1b1d8988d7835e78b70210cfda6.gif"><h4>Joster</h4><span>Grandfather</span></div>
+                <div class="owner-card hover-trigger"><img src="https://i.ibb.co/fd1tgb6W/ba9c23cca7be78b980d8157dccc2bfb5.webp"><h4>Youssef</h4><span>Grandfather</span></div>
+                <div class="owner-card hover-trigger"><img src="https://i.ibb.co/B2tLt3NV/92fe120e6978aec22f20b514946588b0.webp"><h4>Younes</h4><span>Grandfather</span></div>
+            </div>
+            <div class="dev-section">
+                <div class="vip-dev-card hover-trigger">
+                    <img src="https://i.ibb.co/vvr25TVd/ce08d3b1e04c3763f817450323ce65d1-1.webp">
+                    <h4>MAFIA</h4>
+                    <span style="font-size: 11px; color: var(--gold); letter-spacing: 2px;">👑 SYSTEM DEVELOPER 👑</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="assets" class="page">
+            <h2 style="text-align: center; color: var(--gold); margin-bottom: 40px; font-size: 35px;">ممتلكات العائلة</h2>
+            <div class="assets-grid">
+                <div class="asset-box hover-trigger"><img src="https://i.ibb.co/j0VgcXG/mta-screen-2026-01-02-16-30-21.webp"></div>
+                <div class="asset-box hover-trigger"><img src="https://i.ibb.co/HDNd6WP6/mta-screen-2026-01-02-16-30-01.webp"></div>
+                <div class="asset-box hover-trigger"><img src="https://i.ibb.co/RtXDZ94/mta-screen-2026-01-02-16-51-23.webp"></div>
+            </div>
+        </div>
+    </main>
+</div>
 
 <script>
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1456018235404320932/zYojwMeKTPD2Ns5QkTcOeSbE1OJS7OqoCB8r9EnIancMa1EhaN7E3VYl_36bwQNPl-OA";
-const COOLDOWN = 2 * 60 * 60 * 1000;
+    const typeSnd = document.getElementById('typeSound');
+    const hoverSnd = document.getElementById('hoverSound');
+    const text = "عائلة البارون هي عائلة عانت الكثير أثناء بدايتها وعانت من مخربين ولكن الحمد لله وبفضله أصبحت أفضل عائلة في سيرفر ذا نورث وصارت تمتلك شهرة كبيرة لم نكن نتخيلها من قبل.. بفضل الله وصبره أصبحنا أفضل عائلة بذا نورث.\n\nتحيا ELBAROUN";
+    let index = 0;
 
-function toggleOrder(){
-  const box=document.getElementById("orderBox");
-  box.style.display=box.style.display==="block"?"none":"block";
-  sound.play();
-}
-
-function clean(t){
-  return t.replace(/@everyone|@here/gi,"[blocked]");
-}
-
-function sendOrder(){
-  const last=localStorage.getItem("orderTime");
-  if(last){
-    const r=COOLDOWN-(Date.now()-last);
-    if(r>0){
-      const h=Math.floor(r/3600000);
-      const m=Math.floor((r%3600000)/60000);
-      alert(`You must wait ${h}h ${m}m before next order`);
-      return;
+    function typeWriter() {
+        if (index < text.length) {
+            document.getElementById("typing-text").innerHTML += text.charAt(index);
+            typeSnd.currentTime = 0;
+            typeSnd.volume = 0.2;
+            typeSnd.play().catch(()=>{}); 
+            index++;
+            setTimeout(typeWriter, 45); 
+        } else {
+            document.getElementById('enter-btn').style.display = 'inline-block';
+        }
     }
-  }
+    window.onload = () => setTimeout(typeWriter, 1000);
 
-  fetch(WEBHOOK_URL,{
-    method:"POST",
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      content:`?? **New Order**
-?? User: ${clean(user.value)}
-?? Service: ${clean(service.value)}
-?? Details: ${clean(details.value)}`
-    })
-  });
+    function startSite() {
+        const intro = document.getElementById('intro');
+        // تأثير الخروج: اختفاء مع زووم وتلاشي
+        intro.style.opacity = '0';
+        intro.style.filter = 'blur(20px)';
+        intro.style.transform = 'scale(1.5)';
+        
+        // تفعيل الموقع: إزالة البلور والزووم من محتوى الموقع
+        document.body.classList.add('site-loaded');
+        
+        setTimeout(() => intro.style.display = 'none', 1500);
+    }
 
-  localStorage.setItem("orderTime",Date.now());
-  toggleOrder();
-}
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
+        document.getElementById('nav-' + pageId).classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    document.querySelectorAll('.hover-trigger').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            hoverSnd.currentTime = 0;
+            hoverSnd.play().catch(()=>{});
+        });
+    });
 </script>
 
 </body>
